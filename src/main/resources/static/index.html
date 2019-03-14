@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Importing Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>Project Caerus</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-content>
+                <v-toolbar dark color="primary">
+                    <v-toolbar-side-icon></v-toolbar-side-icon>
+                    <v-toolbar-title class="white--text">Hello world!!</v-toolbar-title>
+                </v-toolbar>
+
+                <v-btn @click="showLogin">Toggle showing login page</v-btn>
+                <component v-if=show is="login"></component>
+            </v-content>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="login.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    show: false
+                }
+            },
+            methods: {
+                showLogin: function (event, garbage) {
+                    console.log(event);
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
