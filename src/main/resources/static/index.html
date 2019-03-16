@@ -23,7 +23,7 @@
                         <v-list-tile
                                 v-for="item in items"
                                 :key="item.title"
-                                @click=""
+                                @click="changePage(item.page)"
                         >
                             <v-list-tile-action>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -43,6 +43,9 @@
 
                 <v-btn @click="showLogin">Toggle showing login page</v-btn>
                 <component v-if=show is="login"></component>
+                <component v-if="page === 'home'" is="home"></component>
+                <component v-if="page === 'viewDemo'" is="viewDemo"></component>
+                <component v-if="page === 'newDemo'" is="newDemo"></component>
             </v-content>
         </v-app>
     </div>
@@ -50,6 +53,9 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
     <script src="login.js"></script>
+    <script src="home.js"></script>
+    <script src="viewDemo.js"></script>
+    <script src="newDemo.js"></script>
     <script>
         new Vue({
             el: '#app',
@@ -57,18 +63,23 @@
                 return {
                     show: false,
                     drawer: false,
+                    page: 'home',
                     items: [
-                        { title: 'Home', icon: 'home' },
-                        { title: 'Saved Demos', icon: 'view_list' },
-                        { title: 'New Demos', icon: 'add_box'}
+                        { title: 'Home', icon: 'home', page: 'home'},
+                        { title: 'Saved Demos', icon: 'view_list', page: 'viewDemo'},
+                        { title: 'New Demos', icon: 'add_box', page: 'newDemo'}
                     ]
                 }
             },
             methods: {
-                showLogin: function (event, garbage) {
-                    console.log(event);
+                showLogin: function (garbage) {
+                    console.log(garbage);
                     this.show = !this.show;
                 },
+                changePage: function (newPage){
+                    console.log(newPage);
+                    this.page = newPage;
+                }
             }
         })
     </script>
