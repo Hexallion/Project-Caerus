@@ -20,7 +20,7 @@ Vue.component('new-demo', {
                     </v-expansion-panel-content>
                 </v-expansion-panel>
                 <v-container justify-end>
-                    <v-btn @click="">Start!</v-btn>
+                    <v-btn href="genetic-algorithm/index.html">Start!</v-btn>
                     <v-btn @click="">Reset</v-btn>   
                 </v-container> 
             </v-container>
