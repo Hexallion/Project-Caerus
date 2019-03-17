@@ -3,64 +3,73 @@ Vue.component('new-demo', {
     template: `
         <v-form v-model="valid">
             <v-container>
-              <v-layout>
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    v-model="firstname"
-                    :rules="nameRules"
-                    :counter="10"
-                    label="First name"
-                    required
-                  ></v-text-field>
-                </v-flex>
-
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    v-model="lastname"
-                    :rules="nameRules"
-                    :counter="10"
-                    label="Last name"
-                    required
-                  ></v-text-field>
-                </v-flex>
-
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
+                <v-subheader justify-cente>
+                    <h3 class="black--text">New Demonstration Settings</h3>
+                </v-subheader>
+                <v-expansion-panel>
+                    <v-expansion-panel-content
+                    v-for="group in settings"
+                    :key="group.groupName"
+                    >
+                        <template v-slot:header>
+                            <div>{{group.groupName}}</div>
+                        </template>
+                        <v-card>
+                            content
+                        </v-card>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+                <v-container justify-end>
+                    <v-btn @click="">Start!</v-btn>
+                    <v-btn @click="">Reset</v-btn>   
+                </v-container> 
             </v-container>
          </v-form>
     `,
     data() {
         return {
-            count: 0,
-            title: 'click me - New',
-
             valid: false,
-            firstname: '',
-            lastname: '',
-            nameRules: [
-                v => !!v || 'Name is required',
-                v => v.length <= 10 || 'Name must be less than 10 characters'
-            ],
-            email: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+/.test(v) || 'E-mail must be valid'
+            settings:[
+                {groupName: 'Canvas Settings:', subSettings:[
+                        {Setting: 'Canvas Width'},
+                        {Setting: 'Canvas Height'},
+                        {Setting: 'Canvas Colour'},
+                        {Setting: 'FPS'}
+                    ]},
+                {groupName: 'Population Settings:', subSettings:[
+                        {Setting: 'Population Size'},
+                        {Setting: 'Lifespan'},
+                        {Setting: 'Number of Generations'},
+                        {Setting: 'Sawtooth'}
+                    ]},
+                {groupName: 'Dot settings:', subSettings:[
+                        {Setting: 'Start Position'},
+                        {Setting: 'Dot Size'},
+                        {Setting: 'Dot Colour'}
+                    ]},
+                {groupName: 'Goal Settings:', subSettings:[
+                        {Setting: 'Goal Position'},
+                        {Setting: 'Goal Size'},
+                        {Setting: 'Goal Colour'}
+                    ]},
+                {groupName: 'Obstacle Settings:', subSettings:[
+                        {Setting: 'Obstacle Position'},
+                        {Setting: 'Obstacle Size'},
+                        {Setting: 'Obstacle Colour'}
+                    ]},
+                {groupName: 'Selection Settings:', subSettings:[
+                        {Setting: 'Selection Type'}
+                    ]},
+                {groupName: 'Crossover Settings:', subSettings:[
+                        {Setting: 'Number of crossings'}
+                    ]},
+                {groupName: 'Mutation Settings:', subSettings:[
+                        {Setting: 'Mutation Rate'},
+                        {Setting: 'Dot Specific Mutation'},
+                        {Setting: 'Gene Specific Mutation'},
+                        {Setting: 'Current Gene Multiplier'},
+                        {Setting: 'Mutation Gene Multiplier'}
+                    ]},
             ]
         }
     },
