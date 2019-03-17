@@ -41,11 +41,9 @@
                     <v-toolbar-title class="white--text">Project Caerus</v-toolbar-title>
                 </v-toolbar>
 
-                <v-btn @click="showLogin">Toggle showing login page</v-btn>
-                <component v-if=show is="login"></component>
-                <component v-if="page === 'home'" is="home"></component>
-                <component v-if="page === 'viewDemo'" is="viewDemo"></component>
-                <component v-if="page === 'newDemo'" is="newDemo"></component>
+                <home v-if="page === 'home'" ></home>
+                <view-demo v-if="page === 'viewDemo'" ></view-demo>
+                <new-demo v-if="page === 'newDemo'" ></new-demo>
             </v-content>
         </v-app>
     </div>

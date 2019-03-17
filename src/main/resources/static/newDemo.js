@@ -1,5 +1,5 @@
-Vue.component('newDemo', {
-    name: "newDemo",
+Vue.component('new-demo', {
+    name: "new-demo",
     template: `
         <v-form v-model="valid">
             <v-container>
@@ -16,7 +16,7 @@ Vue.component('newDemo', {
                     required
                   ></v-text-field>
                 </v-flex>
-        
+
                 <v-flex
                   xs12
                   md4
@@ -29,7 +29,7 @@ Vue.component('newDemo', {
                     required
                   ></v-text-field>
                 </v-flex>
-        
+
                 <v-flex
                   xs12
                   md4

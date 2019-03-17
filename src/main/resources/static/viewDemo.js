@@ -1,5 +1,5 @@
-Vue.component('viewDemo', {
-    name: "viewDemo",
+Vue.component('view-demo', {
+    name: "view-demo",
     template: `
         <v-btn @click="check">{{title}} {{count}}</v-btn>
     `,
