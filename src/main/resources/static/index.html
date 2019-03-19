@@ -40,10 +40,7 @@
                     <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
                     <v-toolbar-title>Project Caerus</v-toolbar-title>
                 </v-toolbar>
-
-                <home v-if="page === 'home'" ></home>
-                <view-demo v-if="page === 'viewDemo'" ></view-demo>
-                <new-demo v-if="page === 'newDemo'" ></new-demo>
+                <component :is="page" ></component>
             </v-content>
         </v-app>
     </div>
@@ -53,6 +50,7 @@
     <script src="login.js"></script>
     <script src="home.js"></script>
     <script src="viewDemo.js"></script>
+        <script src="genetic-algorithm/Settings.js"></script>
     <script src="newDemo.js"></script>
     <script>
         new Vue({
@@ -64,8 +62,8 @@
                     page: 'home',
                     items: [
                         { title: 'Home', icon: 'home', page: 'home'},
-                        { title: 'Saved Demos', icon: 'view_list', page: 'viewDemo'},
-                        { title: 'New Demos', icon: 'add_box', page: 'newDemo'}
+                        { title: 'Saved Demos', icon: 'view_list', page: 'view-demo'},
+                        { title: 'New Demos', icon: 'add_box', page: 'new-demo'}
                     ]
                 }
             },
@@ -77,6 +75,7 @@
                 changePage: function (newPage){
                     console.log(newPage);
                     this.page = newPage;
+                    this.drawer = false;
                 }
             }
         })
