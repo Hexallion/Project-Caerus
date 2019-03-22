@@ -37,15 +37,19 @@ Vue.component('new-demo', {
                     </v-expansion-panel-content>
                 </v-expansion-panel>
                 <v-container center>
-                    <v-btn @click="start" href="./genetic-algorithm/index.html">Start!</v-btn>
+                    <v-btn @click="start">Start!</v-btn>
                     <v-btn @click="clearForm">Reset</v-btn>
                 </v-container>
+                <v-slide-y-transition>
+                	<v-container py-0 my-0 v-if="!this.valid" style="color: red">{{errorMessage}}</v-container>
+                </v-slide-y-transition>
             </v-container>
          </v-form>
     `,
     data() {
     return {
 		valid: undefined,
+		errorMessage: "Errors have been detected! Correct and then retry.",
         settings: [{
             groupName: 'Canvas Settings:',
             subSettings: [{
@@ -175,7 +179,7 @@ Vue.component('new-demo', {
 			},
 			{
 				setting: 'Dot Size',
-				alias: 'dotRaidus',
+				alias: 'dotRadius',
 				type: "number",
 				placeholder: "10",
 				value: undefined,
@@ -387,20 +391,27 @@ Vue.component('new-demo', {
 			sessionStorage.clear();
 		},
 		start(){
-			//Changes Settings depending on the values in the form
-			for(let setting of this.settings){
-				for(let subSetting of setting.subSettings){
-                    if((subSetting.value != undefined)&& (subSetting.value != '')){
-						Settings[subSetting.alias] = subSetting.value;
+			if(this.valid) {
+				//Changes Settings depending on the values in the form
+				for (let setting of this.settings) {
+					for (let subSetting of setting.subSettings) {
+						if ((subSetting.value != undefined) && (subSetting.value != '')) {
+							Settings[subSetting.alias] = subSetting.value;
+						}
+					}
+					if ((setting.value != undefined) && (setting.value != '')) {
+						Settings[setting.alias] = setting.value;
 					}
 				}
-                if((setting.value != undefined)&& (setting.value != '')){
-					Settings[setting.alias] = setting.value;
-				}
+
+				//saves settings to session storage
+				sessionStorage.setItem("Settings", JSON.stringify(Settings));
+				location = './genetic-algorithm/index.html';
 			}
-			
-			//saves settings to session storage
-			sessionStorage.setItem("Settings", JSON.stringify(Settings));
+			else{
+				console.log("errors detected");
+				this.errorMessage = "Errors have been detected! Correct and then retry."
+			}
 		}
     }
 });
