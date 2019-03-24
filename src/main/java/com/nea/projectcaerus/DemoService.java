@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class DemoService {
 
     public void saveSettings(Settings settings) {
-
+        return;
     }
 }
