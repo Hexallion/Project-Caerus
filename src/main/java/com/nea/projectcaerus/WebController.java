@@ -1,6 +1,8 @@
 package com.nea.projectcaerus;
 
-import com.nea.projectcaerus.entity.Settings;
+import com.google.gson.Gson;
+import com.nea.projectcaerus.entity.Demonstration;
+import com.nea.projectcaerus.entity.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,14 +17,8 @@ public class WebController {
     private DemoService demoService;
 
     @RequestMapping(value = "/saveResults", method = RequestMethod.POST)
-    public ResponseEntity<String> saveResults(@RequestBody Settings settings){
-        String type = settings.getClass().getTypeName();
-
-        JsonObject obj = new JsonObject();
-        obj.addProperty("status", "Accepted");
-        System.out.println(settings);
-
-        return new ResponseEntity<String>(obj.toString(), HttpStatus.ACCEPTED);
+    public ResponseEntity<String> saveResults(@RequestBody Demonstration demonstration){
+        return saveResults(demonstration);
     }
 
 

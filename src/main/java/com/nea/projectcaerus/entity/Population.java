@@ -1,5 +1,12 @@
 package com.nea.projectcaerus.entity;
 
-public class Population {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Population {
+    @Id
+    public int PopulationId;
+
+    public Dot[] dots;
 }
