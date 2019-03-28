@@ -1,12 +1,19 @@
 package com.nea.projectcaerus.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Population {
     @Id
-    public int PopulationId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    public Long id;
 
-    public Dot[] dots;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "demo_id")
+    public Demonstration demo;
+
+    @OneToMany(mappedBy = "population", cascade = CascadeType.ALL)
+    public List<Dot> dots;
 }

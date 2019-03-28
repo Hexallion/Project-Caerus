@@ -6,18 +6,17 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @Entity
 @Table(name = "settings")
 public class Settings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "SettingsId")
-    public String SettingsId;
+    @Column(name = "id")
+    public Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Demoid")
-    public Demonstration DemoId;
+    @OneToOne(mappedBy = "settings")
+    public Demonstration demoId;
 
 
     //Window settings

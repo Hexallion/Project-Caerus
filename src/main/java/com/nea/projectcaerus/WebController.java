@@ -18,7 +18,7 @@ public class WebController {
 
     @RequestMapping(value = "/saveResults", method = RequestMethod.POST)
     public ResponseEntity<String> saveResults(@RequestBody Demonstration demonstration){
-        return saveResults(demonstration);
+        return demoService.saveResults(demonstration);
     }
 
 
