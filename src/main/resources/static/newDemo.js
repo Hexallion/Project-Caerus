@@ -57,10 +57,9 @@ Vue.component('new-demo', {
 				alias: 'canWidth',
                 type: "number",
                 placeholder: "700",
-                sub: "true",
                 value: undefined,
 				rules: [
-					(v) =>  (v === undefined ||v == '' || v < 2000) ||'Please enter a value less than 2000!',
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
 					(v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
 				]
             },
@@ -71,15 +70,16 @@ Vue.component('new-demo', {
 				placeholder: "700",
 				value: undefined,
                 rules: [
-                    (v) =>  (v === undefined ||v == '' || v < 2000) ||'Please enter a value less than 2000!',
+                    (v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
 			{
 				setting: 'Canvas Colour',
 				alias: 'canColour',	
-				type: "text",
-				placeholder: "grey",
+				type: "multiple",
+				options: ["Red", "Pink", "Orange", "Yellow", "Purple", "Green", "Blue", "Brown", "White", "Gray", "Black"],
+				placeholder: "Grey",
 				value: undefined,
                 rules: []
 			},
@@ -90,6 +90,7 @@ Vue.component('new-demo', {
 				placeholder: "50",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 60) ||'Please enter a value less or equal to than 60!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			}]
@@ -103,6 +104,7 @@ Vue.component('new-demo', {
 				placeholder: "100",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 500) ||'Please enter a value less than 500!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -113,6 +115,7 @@ Vue.component('new-demo', {
 				placeholder: "250",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 500) ||'Please enter a value less than 500!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -123,6 +126,7 @@ Vue.component('new-demo', {
 				placeholder: "30",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 50) ||'Please enter a value less than 50!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -164,6 +168,7 @@ Vue.component('new-demo', {
 				placeholder: "350",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -174,6 +179,7 @@ Vue.component('new-demo', {
 				placeholder: "550",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -184,15 +190,17 @@ Vue.component('new-demo', {
 				placeholder: "10",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 50) ||'Please enter a value less than 50!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
 			{
 				setting: 'Dot Colour',
 				alias: 'dotColour',
-				type: "text",
+				type: "multiple",
+				options: ["Red", "Pink", "Orange", "Yellow", "Purple", "Green", "Blue", "Brown", "White", "Gray", "Black"],
 				rules: [],
-				placeholder: "black",
+				placeholder: "Black",
 				value: undefined
 			}]
 		},
@@ -205,6 +213,7 @@ Vue.component('new-demo', {
 				placeholder: "335",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -215,6 +224,7 @@ Vue.component('new-demo', {
 				placeholder: "100",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -225,15 +235,17 @@ Vue.component('new-demo', {
 				placeholder: "30",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 80) ||'Please enter a value less than 80!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
 			{
 				setting: 'Goal Colour',
 				alias: 'goalColour',
-				type: "text",
+				type: "multiple",
+				options: ["Red", "Pink", "Orange", "Yellow", "Purple", "Green", "Blue", "Brown", "White", "Gray", "Black"],
 				rules: [],
-				placeholder: "blue",
+				placeholder: "Blue",
 				value: undefined
 			}]
 		},
@@ -246,6 +258,7 @@ Vue.component('new-demo', {
 				placeholder: "200",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -256,6 +269,7 @@ Vue.component('new-demo', {
 				placeholder: "275",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -266,6 +280,7 @@ Vue.component('new-demo', {
 				placeholder: "300",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
@@ -276,15 +291,17 @@ Vue.component('new-demo', {
 				placeholder: "75",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 2000) ||'Please enter a value less than 2000!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			},
 			{
 				setting: 'Obstacle Colour',
 				alias: 'obstacleColour',
-				type: "text",
+				type: "multiple",
+				options: ["Red", "Pink", "Orange", "Yellow", "Purple", "Green", "Blue", "Brown", "White", "Gray", "Black"],
 				rules: [],
-				placeholder: "black",
+				placeholder: "Black",
 				value: undefined
 			}]
 		},
@@ -305,6 +322,7 @@ Vue.component('new-demo', {
 						placeholder: "10",
 						value: undefined,
                         rules: [
+							(v) =>  (v === undefined ||v == '' || v <= 500) ||'Please enter a value less than 500!',
                             (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                         ]
 					}]
@@ -319,6 +337,7 @@ Vue.component('new-demo', {
 				placeholder: "1",
 				value: undefined,
                 rules: [
+					(v) =>  (v === undefined ||v == '' || v <= 500) ||'Please enter a value less than 500!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			}]
@@ -384,13 +403,22 @@ Vue.component('new-demo', {
 				for(let subSetting of setting.subSettings){
 					subSetting.value = undefined;
 					if(subSetting.type == "boolean"){subSetting.value = subSetting.placeholder;}
+					
+					console.log("Reset: " + subSetting.alias);
+					if(subSetting.subSettings !== undefined){
+						for(let subSubSetting of subSetting.subSettings){
+							subSubSetting.value = undefined;
+							if(subSubSetting.type == "boolean"){subSubSetting.value = subSubSetting.placeholder;}
+							console.log("	Reset: " + subSubSetting.alias);
+						}
+					}
 				}
-				setting.value = undefined;
-				if(setting.type == "boolean"){setting.value = setting.placeholder;}
 			}
 			sessionStorage.clear();
+			this.dynamicValid = true;
 		},
 		start(){
+			this.validate();
 			if(this.valid) {
 				//Changes Settings depending on the values in the form
 				for (let setting of this.settings) {
@@ -411,6 +439,23 @@ Vue.component('new-demo', {
 			else{
 				console.log("errors detected");
 				this.errorMessage = "Errors have been detected! Correct and then retry."
+			}
+		},
+		//Handles dynamic vaildation of form
+		validate(){
+			let populationSize = this.settings[1].subSettings[0].value;
+			if(populationSize === undefined || populationSize === ""){populationSize = this.settings[1].subSettings[0].placeholder;}
+			{
+				let reduction = this.settings[1].subSettings[3].subSettings[0].value;
+				let period = this.settings[1].subSettings[3].subSettings[1].value;
+				if(reduction === undefined || reduction === ""){reduction = this.settings[1].subSettings[3].subSettings[0].placeholder;}
+				if(period === undefined || period === ""){period = this.settings[1].subSettings[3].subSettings[1].placeholder;}
+				if(period * reduction >= Number(populationSize) && this.settings[1].subSettings[3].value){this.valid = false;}
+			}
+			{
+				let tournamentParticipents = this.settings[5].subSettings[0].subSettings[0].value;
+				if(tournamentParticipents === undefined || tournamentParticipents === ""){tournamentParticipents = this.settings[5].subSettings[0].subSettings[0].placeholder;}
+				if(Number(tournamentParticipents) >= Number(populationSize) && this.settings[5].subSettings[0].value){this.valid = false;}
 			}
 		}
     }

@@ -1,23 +1,40 @@
 package com.nea.projectcaerus.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 public class Dot {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public Long DotId;
+    private Long DotId;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "population_id")
-    public Population population;
+    @JsonBackReference(value = "dot-reference")
+    private Population population;
 
     @OneToMany(mappedBy = "dot", cascade = CascadeType.ALL)
-    public List<Vector> dna;
+    @JsonManagedReference(value = "vector-reference")
+    private List<Vector> dna;
 
-    public float fitness;
-    public String status;
+    private float fitness;
+    private String status;
+
+    @Override
+    public String toString() {
+        return "Dot{" +
+                "DotId=" + DotId +
+                ", dna=" + dna +
+                ", fitness=" + fitness +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

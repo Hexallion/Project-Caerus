@@ -1,76 +1,116 @@
 package com.nea.projectcaerus.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 //@EnableAutoConfiguration
 @Entity
+@Data
 @Table(name = "settings")
 public class Settings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public Long id;
+    private Long id;
 
     @OneToOne(mappedBy = "settings")
-    public Demonstration demoId;
+    @JsonBackReference(value = "settings-reference")
+    private Demonstration demo;
 
 
     //Window settings
-    public Integer canWidth;
-    public Integer canHeight;
-    public String canColour;
-    public Integer fps;
+    private Integer canWidth;
+    private Integer canHeight;
+    private String canColour;
+    private Integer fps;
     //----------------------------------
 
     //Population settings
-    public Integer populationSize;
-    public Integer lifeSpan;
-    public Integer noGenerations;
-    public Boolean sawtooth;
-    public Integer reduction;
-    public Integer period;
+    private Integer populationSize;
+    private Integer lifeSpan;
+    private Integer noGenerations;
+    private Boolean sawtooth;
+    private Integer reduction;
+    private Integer period;
     //----------------------------------
 
     //Dot settings
-    public Integer startX;
-    public Integer startY;
-    public Integer dotRadius;
-    public String dotColour;
-    public String bestDotColour;
+    private Integer startX;
+    private Integer startY;
+    private Integer dotRadius;
+    private String dotColour;
+    private String bestDotColour;
     //----------------------------------
 
     //Goal Settings
-    public Integer goalX;
-    public Integer goalY;
-    public Integer goalSize;
-    public String goalColour;
+    private Integer goalX;
+    private Integer goalY;
+    private Integer goalSize;
+    private String goalColour;
     //----------------------------------
 
     //Obstacle Settings
-    public Integer obstacleX;
-    public Integer obstacleY;
-    public Integer obstacleWidth;
-    public Integer obstacleHeight;
-    public String obstacleColour;
+    private Integer obstacleX;
+    private Integer obstacleY;
+    private Integer obstacleWidth;
+    private Integer obstacleHeight;
+    private String obstacleColour;
     //----------------------------------
 
     //Selection Settings
-    public Integer tournamentParticipents;
-    public String selectionType;
+    private Integer tournamentParticipents;
+    private String selectionType;
     //----------------------------------
 
     //Crossover settings
-    public Integer noCrossings;
+    private Integer noCrossings;
     //----------------------------------
 
     //Mutation Settings
-    public float mutationRate;
-    public String DotSpecificMutation;
-    public String GeneSpecificMutation;
-    public float currentMultiplyer;
-    public float mutationMultiplyer;
+    private float mutationRate;
+    private String DotSpecificMutation;
+    private String GeneSpecificMutation;
+    private float currentMultiplyer;
+    private float mutationMultiplyer;
+
+    @Override
+    public String toString() {
+        return "Settings{" +
+                "id=" + id +
+                ", canWidth=" + canWidth +
+                ", canHeight=" + canHeight +
+                ", canColour='" + canColour + '\'' +
+                ", fps=" + fps +
+                ", populationSize=" + populationSize +
+                ", lifeSpan=" + lifeSpan +
+                ", noGenerations=" + noGenerations +
+                ", sawtooth=" + sawtooth +
+                ", reduction=" + reduction +
+                ", period=" + period +
+                ", startX=" + startX +
+                ", startY=" + startY +
+                ", dotRadius=" + dotRadius +
+                ", dotColour='" + dotColour + '\'' +
+                ", bestDotColour='" + bestDotColour + '\'' +
+                ", goalX=" + goalX +
+                ", goalY=" + goalY +
+                ", goalSize=" + goalSize +
+                ", goalColour='" + goalColour + '\'' +
+                ", obstacleX=" + obstacleX +
+                ", obstacleY=" + obstacleY +
+                ", obstacleWidth=" + obstacleWidth +
+                ", obstacleHeight=" + obstacleHeight +
+                ", obstacleColour='" + obstacleColour + '\'' +
+                ", tournamentParticipents=" + tournamentParticipents +
+                ", selectionType='" + selectionType + '\'' +
+                ", noCrossings=" + noCrossings +
+                ", mutationRate=" + mutationRate +
+                ", DotSpecificMutation='" + DotSpecificMutation + '\'' +
+                ", GeneSpecificMutation='" + GeneSpecificMutation + '\'' +
+                ", currentMultiplyer=" + currentMultiplyer +
+                ", mutationMultiplyer=" + mutationMultiplyer +
+                '}';
+    }
 }

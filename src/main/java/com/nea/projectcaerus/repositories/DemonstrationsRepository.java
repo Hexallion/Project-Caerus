@@ -1,9 +1,7 @@
-package com.nea.projectcaerus.Repositorys;
+package com.nea.projectcaerus.repositories;
 
 import com.nea.projectcaerus.entity.Demonstration;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 
 public interface DemonstrationsRepository extends JpaRepository<Demonstration, Long> {

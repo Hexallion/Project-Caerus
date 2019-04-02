@@ -1,19 +1,34 @@
 package com.nea.projectcaerus.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Vector {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public Long DotId;
+    private Long vectorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dot_id")
-    public Dot dot;
+    @JsonBackReference(value = "vector-reference")
+    private Dot dot;
 
-    public float x;
-    public float y;
-    public float z;
+    private float x;
+    private float y;
+    private float z;
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "vectorId=" + vectorId +
+                ", x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
 }

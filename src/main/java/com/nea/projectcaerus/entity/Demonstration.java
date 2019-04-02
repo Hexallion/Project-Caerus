@@ -1,6 +1,7 @@
 package com.nea.projectcaerus.entity;
-import com.nea.projectcaerus.entity.*;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,16 +9,28 @@ import java.util.List;
 //@EnableAutoConfiguration
 @Entity
 @Table(name = "demonstrations")
+@Data
 public class Demonstration {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public Long id; //Id assigned by DemoService
+    private Long id; //Id assigned by DemoService
 
     @OneToMany(mappedBy = "demo", cascade = CascadeType.ALL)
-    public List<Population> populations;
+    @JsonManagedReference(value = "population-reference")
+    private List<Population> populations;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "settings_id", referencedColumnName = "id")
-    public Settings settings;
+    @JsonManagedReference(value = "settings-reference")
+    private Settings settings;
+
+    @Override
+    public String toString() {
+        return "Demonstration{" +
+                "id=" + id +
+                ", populations=" + populations +
+                ", settings=" + settings +
+                '}';
+    }
 }
