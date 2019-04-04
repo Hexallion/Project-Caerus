@@ -40,7 +40,7 @@
                     <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
                     <v-toolbar-title>Project Caerus</v-toolbar-title>
                 </v-toolbar>
-                <component :is="page" :demoId="demoId"></component>
+                <component :is="page"></component>
             </v-content>
         </v-app>
     </div>
@@ -66,7 +66,6 @@
                         { title: 'Saved Demos', icon: 'view_list', page: 'view-demo'},
                         { title: 'New Demos', icon: 'add_box', page: 'new-demo'}
                     ],
-                    demoId: null
                 }
             },
             methods: {
@@ -79,6 +78,11 @@
                     this.page = newPage;
                     this.drawer = false;
                 },
+            },
+            beforeMount() {
+                if(sessionStorage.getItem("demoId") !== null) {
+                    this.page = 'view-demo';
+                }
             }
         })
     </script>

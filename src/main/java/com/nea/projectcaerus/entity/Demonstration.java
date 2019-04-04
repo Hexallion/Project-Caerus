@@ -16,14 +16,18 @@ public class Demonstration {
     @Column(name = "id")
     private Long id; //Id assigned by DemoService
 
-    @OneToMany(mappedBy = "demo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "demo", cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "population-reference")
     private List<Population> populations;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "settings_id", referencedColumnName = "id")
     @JsonManagedReference(value = "settings-reference")
     private Settings settings;
+
+    @Column(name="DATE_CREATED")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date dateCreated = new java.util.Date();
 
     @Override
     public String toString() {
@@ -31,6 +35,7 @@ public class Demonstration {
                 "id=" + id +
                 ", populations=" + populations +
                 ", settings=" + settings +
+                ", dateCreated=" + dateCreated +
                 '}';
     }
 }

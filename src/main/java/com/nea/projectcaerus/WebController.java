@@ -2,6 +2,7 @@ package com.nea.projectcaerus;
 
 import com.nea.projectcaerus.entity.Demonstration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class WebController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @RequestMapping(value = "/viewDemos/{pageNumber}")
+    public ResponseEntity<Page<Demonstration>> viewDemos(@PathVariable int pageNumber) {
+        return ResponseEntity.ok(demoService.viewDemos(pageNumber));
     }
 }

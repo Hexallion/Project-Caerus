@@ -1,72 +1,123 @@
 Vue.component('view-demo', {
     name: "view-demo",
     template: `
-		<v-container>
-			<v-subheader justify-cente>
-				<h3 class="black--text">Demonstration ID: {{demo.id}}</h3>
-			</v-subheader>
-			<v-expansion-panel>
-				<v-expansion-panel-content>
-					<template v-slot:header>
-						<div>Settings</div>
-					</template>
-					<v-container ma-1 pt-1>
-						<v-expansion-panel>
-							<v-expansion-panel-content
-							v-for="group in settings"
-							:key="group.groupName"
-							>
-								<template v-slot:header>
-									<div>{{group.groupName}}</div>
-								</template>
-								
-								<v-card
-								v-for="setting in group.subSettings"
-								:key="setting.setting"
-								>
-									<v-container py-0 my-0>
-										{{setting.setting}}: {{setting.value}}
-									</v-container>
-									
-									<v-container py-0 my-0 v-if="(setting.type==='boolean' && setting.value) || setting.value==='Tournament Selection'"
-									v-for="subSetting in setting.subSettings" :key="subSetting.setting">
-										{{subSetting.setting}}: {{subSetting.value}}
-									</v-container>
-									
-								</v-card>
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-container>
-				</v-expansion-panel-content>
-			</v-expansion-panel>
-			
-			
-			<v-card
-			class="mx-auto text-xs-center">
-				<v-card-text>
-					<v-sparkline
-					:value="noDead"
-					height="100"
-					padding="24"
-					stroke-linecap="round"
-					smooth
-					auto-draw>
-						<template v-slot:label="noDead">
-							{{ noDead.index}}
+	<v-layout>
+		<v-container grid-list-md align-center v-if="page === null">
+			<v-layout>
+				<v-flex shrink align-self-center>
+					<v-btn icon @click="viewPages()" pa-0 ma-0>
+						<v-icon> arrow_left </v-icon>
+					</v-btn>		
+				</v-flex>	
+				<v-flex grow>
+					<v-subheader>
+						<h3 class="black--text">Demonstration ID: {{demo.id}}</h3>
+					</v-subheader>
+					<v-subheader>
+						<h3 class="black--text">Date Created: {{demo.dateCreated}} </h3>
+					</v-subheader>
+				</v-flex>
+			</v-layout>
+			<v-layout wrap mx>
+				<v-expansion-panel>
+					<v-expansion-panel-content>
+						<template v-slot:header>
+							<div>Settings</div>
 						</template>
-					</v-sparkline>
-				</v-card-text>
+						<v-container ma-1 pt-1>
+							<v-expansion-panel>
+								<v-expansion-panel-content v-for="group in settings" :key="group.groupName">
+									<template v-slot:header>
+										<div>{{group.groupName}}</div>
+									</template>
+									
+									<v-sheet v-for="setting in group.subSettings" :key="setting.setting">
+										<v-container py-0 my-0>
+											{{setting.setting}}: {{setting.value}}
+										</v-container>
+										
+										<v-container py-0 my-0 v-if="(setting.type==='boolean' && setting.value) || setting.value==='Tournament Selection'"
+										v-for="subSetting in setting.subSettings" :key="subSetting.setting">
+											{{subSetting.setting}}: {{subSetting.value}}
+										</v-container>	
+									</v-sheet>
+								</v-expansion-panel-content>
+							</v-expansion-panel>
+						</v-container>
+					</v-expansion-panel-content>
+				</v-expansion-panel>	
+				
+				<v-flex py-2>
+					<v-card>
+						<v-card-title>
+						Idle Dots
+						</v-card-title>
+						
+						<v-card-text>
+						<v-sparkline :value="noIdleDots" height="100" stroke-linecap="round" smooth auto-draw/>
+						</v-card-text>
+					</v-card>
+				</v-flex>
+				
+				<v-flex py-2 >
+					<v-card>
+						<v-card-title>
+						Number of dots dead
+						</v-card-title>
+						
+						<v-card-text>
+							<v-sparkline :value="noDead" height="100" stroke-linecap="round" smooth auto-draw/>
+						</v-card-text>
+					</v-card>				
+				</v-flex>
+			</v-layout>
+			
+			<v-card>
+				<v-card-title>
+				Number of dots which reached the Goal
+				</v-card-title>
+				
 				<v-card-text>
-					<div class="display-1 font-weight-thin">Number of dots dead</div>
+					<v-sparkline :value="noReachedGoal" height="100" stroke-linecap="round" smooth auto-draw/>
 				</v-card-text>
+			</v-card>				
+		</v-container>
+		
+		<v-container v-else transition="slide-x-transition">
+			<v-subheader justify-cente>
+				<h3 class="black--text">Saved Demos</h3>
+			</v-subheader>
+			
+			<v-card>
+				<v-list v-for="demo in page.content" :key="demo.id">
+					<v-list-tile @click="selectDemo(demo.id)">
+					
+						<v-list-tile-content>
+							<v-list-tile-title>Demonstration Id: {{ demo.id }}</v-list-tile-title>
+							<v-list-tile-sub-title>{{ demo.dateCreated }}</v-list-tile-sub-title>
+						</v-list-tile-content>
+
+						<v-list-tile-action>
+							<v-btn icon ripple>
+								<v-icon> arrow_right </v-icon>
+							</v-btn>
+						</v-list-tile-action>
+					</v-list-tile>
+					<v-flex mx-2 px-2 my-0 py-0 v-if="demo.id != page.content[page.numberOfElements - 1].id">
+						<v-divider></v-divider>
+					</v-flex>
+				</v-list>
 			</v-card>
 		</v-container>
+	</v-layout>
     `,
     data() {
         return {
+			page: null,
 			demo: undefined,
 			noDead: [],
 			noReachedGoal: [],
+			noIdleDots: [],
 			settings: [
 			{
 				groupName: 'Canvas Settings:',
@@ -282,47 +333,72 @@ Vue.component('view-demo', {
     },
 	beforeMount() {
 		console.log("Mounting view-demo");
-        this.$http.get('/viewResult/' + sessionStorage.getItem("demoId")).then(response => {
-            console.log(response.body);
-			this.demo = response.body;
-			this.populate();
-			this.analyse();
-        }, response => {
-            console.log(response);
-        })
-		
-		//this.demo = JSON.parse(sessionStorage.getItem("demo"));
-		console.log(this.demo);
+    	if(sessionStorage.getItem("demoId") !== null) {
+			this.getDemo();
+		}else{
+    		this.getPage();
+		}
     },
     methods: {
-        check() {
-            this.count++;
-        },
+        getDemo(){
+			this.$http.get('/viewResult/' + sessionStorage.getItem("demoId")).then(response => {
+				this.demo = response.body;
+				this.populate();
+				this.analyse();
+			}, response => {
+				console.log(response);
+				try{
+					this.demo = JSON.parse(sessionStorage.getItem("demo"));
+					this.populate();
+					this.analyse();
+				}
+				catch(error){
+					console.log("Unable to get Demo from session storage!");
+				}
+			})
+		},
+		getPage(){
+			this.$http.get('/viewDemos/0').then(response => {
+    			console.log(response.body);
+				this.page = response.body;
+			}, response =>{
+				console.log(response);
+    		})
+		},
 		populate(){
-			console.log("Populating...");
+			console.log("Populating settings...");
 			for(group of this.settings){
-				console.log(group.groupName);
 				for(setting of group.subSettings){
-					console.log("	" + setting.setting);
 					setting.value = this.demo.settings[setting.alias];
 					
 					if(setting.subSettings != undefined){
 						for(subSetting of setting.subSettings){
-							console.log("		" + subSetting.setting);
 							subSetting.value = this.demo.settings[subSetting.alias];
 						}
 					}
 				}
 			}
+			console.log("Finnished populating settings...");
 		},
 		analyse(){
-			for(population of this.demo.populations){
-				console.log(population);
+			for(let index in this.demo.populations){
+				let population = this.demo.populations[index];
 				this.noDead.push(population.noDead);
 				this.noReachedGoal.push(population.noReachedGoal);
+				let reduction = 0;
+				if(this.demo.settings.sawtooth === true){reduction = ((index % this.demo.settings.period) * this.demo.settings.reduction)};
+				this.noIdleDots.push(this.demo.settings.populationSize - population.noDead - population.noReachedGoal - reduction);
 			}
-			console.log(this.noDead);
-			console.log(this.noReachedGoal);
+		},
+		selectDemo(demoId){
+			console.log(demoId);
+			sessionStorage.setItem("demoId", demoId);
+			this.getDemo();
+			this.page = null;
+		},
+		viewPages(){
+			sessionStorage.removeItem("demoId");
+			this.getPage();
 		}
     }
 });

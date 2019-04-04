@@ -20,9 +20,17 @@ public class Population {
     @JsonBackReference(value = "population-reference")
     private Demonstration demo;
 
+    /*
     @OneToMany(mappedBy = "population", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "dot-reference")
     private List<Dot> dots;
+    */
+
+    @OneToMany(mappedBy = "population", cascade = CascadeType.PERSIST)
+    @JsonManagedReference(value = "dna-reference")
+    private List<Vector> bestDotDna;
+
+    private float bestDotFitness;
 
     private int noDead;
 
@@ -32,7 +40,8 @@ public class Population {
     public String toString() {
         return "Population{" +
                 "id=" + id +
-                ", dots=" + dots +
+                ", bestDotDna=" + bestDotDna +
+                ", bestDotFitness=" + bestDotFitness +
                 ", noDead=" + noDead +
                 ", noReachedGoal=" + noReachedGoal +
                 '}';

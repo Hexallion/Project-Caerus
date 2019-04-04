@@ -87,10 +87,10 @@ Vue.component('new-demo', {
 				setting: 'FPS',
 				alias: 'fps',
 				type: "number",
-				placeholder: "50",
+				placeholder: "60",
 				value: undefined,
                 rules: [
-					(v) =>  (v === undefined ||v == '' || v <= 60) ||'Please enter a value less or equal to than 60!',
+					(v) =>  (v === undefined ||v == '' || v <= 80) ||'Please enter a value less or equal to than 80!',
                     (v) =>  (v === undefined ||v == '' || v > 0) ||'Please enter a value greater than 0!'
                 ]
 			}]

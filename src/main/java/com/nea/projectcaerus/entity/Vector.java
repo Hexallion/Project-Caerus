@@ -13,10 +13,16 @@ public class Vector {
     @Column(name = "id")
     private Long vectorId;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dot_id")
     @JsonBackReference(value = "vector-reference")
     private Dot dot;
+    */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "population_id")
+    @JsonBackReference(value = "dna-reference")
+    private Population population;
 
     private float x;
     private float y;
