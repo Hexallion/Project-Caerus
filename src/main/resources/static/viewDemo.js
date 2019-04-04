@@ -80,7 +80,10 @@ Vue.component('view-demo', {
 				<v-card-text>
 					<v-sparkline :value="noReachedGoal" height="100" stroke-linecap="round" smooth auto-draw/>
 				</v-card-text>
-			</v-card>				
+			</v-card>	
+			<v-flex shrink align-self-center>
+				<v-btn @click="replayBestDots()" pa-0 ma-0>Replay Best Dots</v-btn>		
+			</v-flex>				
 		</v-container>
 		
 		<v-container v-else transition="slide-x-transition">
@@ -107,6 +110,11 @@ Vue.component('view-demo', {
 						<v-divider></v-divider>
 					</v-flex>
 				</v-list>
+				<v-pagination
+				  v-model="pageNumber"
+				  :length="page.totalPages"
+				  :total-visible="7"
+				></v-pagination>
 			</v-card>
 		</v-container>
 	</v-layout>
@@ -114,6 +122,7 @@ Vue.component('view-demo', {
     data() {
         return {
 			page: null,
+			pageNumber: 1,
 			demo: undefined,
 			noDead: [],
 			noReachedGoal: [],
@@ -333,7 +342,7 @@ Vue.component('view-demo', {
     },
 	beforeMount() {
 		console.log("Mounting view-demo");
-    	if(sessionStorage.getItem("demoId") !== null) {
+    	if(sessionStorage.demoId) {
 			this.getDemo();
 		}else{
     		this.getPage();
@@ -358,7 +367,7 @@ Vue.component('view-demo', {
 			})
 		},
 		getPage(){
-			this.$http.get('/viewDemos/0').then(response => {
+			this.$http.get('/viewDemos/' + (this.pageNumber - 1)).then(response => {
     			console.log(response.body);
 				this.page = response.body;
 			}, response =>{
@@ -371,7 +380,7 @@ Vue.component('view-demo', {
 				for(setting of group.subSettings){
 					setting.value = this.demo.settings[setting.alias];
 					
-					if(setting.subSettings != undefined){
+					if(setting.subSettings !== undefined){
 						for(subSetting of setting.subSettings){
 							subSetting.value = this.demo.settings[subSetting.alias];
 						}
@@ -388,6 +397,8 @@ Vue.component('view-demo', {
 				let reduction = 0;
 				if(this.demo.settings.sawtooth === true){reduction = ((index % this.demo.settings.period) * this.demo.settings.reduction)};
 				this.noIdleDots.push(this.demo.settings.populationSize - population.noDead - population.noReachedGoal - reduction);
+
+				console.log("noDead=" + this.noDead + ", noReachedGoal=" + this.noReachedGoal + ", noIdleDots" + this.noIdleDots);
 			}
 		},
 		selectDemo(demoId){
@@ -399,6 +410,24 @@ Vue.component('view-demo', {
 		viewPages(){
 			sessionStorage.removeItem("demoId");
 			this.getPage();
+			this.demo = null;
+			this.noIdleDots = [];
+			this.noDead = [];
+			this.noReachedGoal = [];
+		},
+		replayBestDots(){
+        	sessionStorage.setItem("Settings", JSON.stringify(this.demo.settings));
+			let bestDotMovements = [];
+        	for(let movements of this.demo.populations){
+        		bestDotMovements.push(movements);
+			}
+			sessionStorage.setItem("bestDotMovements", JSON.stringify(bestDotMovements));
+			location = './view-best/index.html';
 		}
-    }
+    },
+	watch:{
+    	pageNumber: function () {
+			this.getPage();
+		}
+	}
 });
