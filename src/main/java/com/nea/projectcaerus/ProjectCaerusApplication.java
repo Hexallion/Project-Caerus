@@ -1,3 +1,10 @@
+/*
+Project Caerus- By Peter Cresswell
+
+Main Application
+
+Used for the initialisation of the application
+*/
 package com.nea.projectcaerus;
 
 import org.springframework.boot.SpringApplication;

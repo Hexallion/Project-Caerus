@@ -1,10 +1,24 @@
+/*
+Project Caerus- By Peter Cresswell
+
+new-demo page component
+
+Used to allow the user to create a new demo. Has a list of settings which can be changed.
+*All validation done however dynamic validation does not say what the error is.
+*/
 Vue.component('new-demo', {
             name: "new-demo",
             template: `
-        <v-form v-model="valid">
-            <v-container>
-                <v-subheader justify-cente>
+		<v-container>
+        	<v-form v-model="valid">
+                <v-subheader>
                     <h3 class="black--text">New Demonstration Settings</h3>
+                    <v-tooltip right>
+					  <template v-slot:activator="{ on }">
+						<v-icon v-on="on">'info'</v-icon>
+					  </template>
+					  <span>See Info for details on settings</span>
+					</v-tooltip>
                 </v-subheader>
                 <v-expansion-panel>
                     <v-expansion-panel-content
@@ -43,14 +57,15 @@ Vue.component('new-demo', {
                 <v-slide-y-transition>
                 	<v-container py-0 my-0 v-if="!this.valid" style="color: red">{{errorMessage}}</v-container>
                 </v-slide-y-transition>
-            </v-container>
-         </v-form>
+        	 </v-form>
+		</v-container>
     `,
     data() {
     return {
 		valid: undefined,
 		errorMessage: "Errors have been detected! Correct and then retry.",
-        settings: [{
+        settings: [
+        	{
             groupName: 'Canvas Settings:',
             subSettings: [{
                 setting: 'Canvas Width',
@@ -398,6 +413,7 @@ Vue.component('new-demo', {
         }
     },
     methods: {
+		//clears the settings of the form, resets the form
 		clearForm(){
 			for(let setting of this.settings){
 				for(let subSetting of setting.subSettings){

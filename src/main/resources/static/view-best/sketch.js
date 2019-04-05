@@ -1,5 +1,5 @@
 /*
-SmartDots Algorithm - By Peter Cresswell
+Project Caerus- By Peter Cresswell
 
 sketch
 Central script controlling the sketch
@@ -7,12 +7,13 @@ Central script controlling the sketch
 
 //Setup the canvas
 function setup() {
-    //Initialtes objects
+    //Initialises objects
 
     bestDots = [];
     generationNumber = 0;
 
     setupSettings();
+    setupDots();
     Goal = new Goal();
     Obstacles = new Obstacles();
 
@@ -24,10 +25,19 @@ function setup() {
 
 //Setup Settings -> use Session storage, if not use default
 function setupSettings() {
-    if(sessionStorage.Settings && sessionStorage.bestDotMovements){
+    if(sessionStorage.Settings){
         console.log("Session Settings exists!");
         Settings = JSON.parse(sessionStorage.Settings);
+    }
+    else{
+        console.log("Session Settings does not exist :(");
+    }
+}
+//--------------------------------------------------------------------------------------------
 
+//Setup DOts -> use Session storage, if not use default
+function setupDots() {
+    if(sessionStorage.bestDotMovements){
         let importedBestDotMovements = JSON.parse(sessionStorage.getItem("bestDotMovements"));
 
         for(let generation of importedBestDotMovements){
@@ -39,12 +49,12 @@ function setupSettings() {
         }
     }
     else{
-        console.log("Session Settings does not exist :(");
+        console.log("Dots does not exist :(");
     }
 }
 //--------------------------------------------------------------------------------------------
 
-//Draws onto the canvas and initiates the next step of the dots movement
+//Draws onto the canvas and initiates the next step of the dot's movement
 function draw() {
     noStroke();
     background(Settings.canColour);
@@ -77,12 +87,13 @@ function draw() {
 }
 //--------------------------------------------------------------------------------------------
 
-//Dots make the next step, if at end of life, initiate new generation
+//Dots make the next step, if at end of life, move onto next generation
 function NextStep() {
     if (bestDots[generationNumber].currentStep < Settings.lifeSpan) {
         bestDots[generationNumber].NextStep();
     }
     else {
+        //If at end display back button
         if (generationNumber >= Settings.noGenerations) {
             Finish();
         }
@@ -91,6 +102,7 @@ function NextStep() {
 }
 //--------------------------------------------------------------------------------------------
 
+//Produced back button for user navigation
 function Finish(){
 	exitButton = createButton('Back');
 	let eButtonX = (Settings.canWidth - exitButton.width) / 2;
@@ -99,9 +111,13 @@ function Finish(){
 	exitButton.mousePressed(ExitDemo);
 	noLoop();
 }
+//--------------------------------------------------------------------------------------------
 
+//Changes location to be main webpage and clears session storage of the dots
 function ExitDemo(){
 	let host = window.location.host;
 	let protocol = window.location.protocol;
+	sessionStorage.removeItem("bestDotMovements");
 	location.href = ( protocol + "//" + host);
 }
+//--------------------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 /*
-SmartDots Algorithm - By Peter Cresswell
+Project Caerus - By Peter Cresswell
 
-Dot
-Dot Object, The object that learns
+BestDot
+Dot Object, used to contain the vectors and other details to make the sketch work
 */
 
 function BestDot(startX, startY) {
@@ -22,7 +22,7 @@ function BestDot(startX, startY) {
         this.VVector.add(this.AVector);
         this.VVector.limit(5);
         this.PVector.add(this.VVector);
-    }
+    };
     //--------------------------------------------------------------------------------------------
 
     //Applies the next dna action
@@ -48,7 +48,7 @@ function BestDot(startX, startY) {
         }
         this.currentStep++;
         //console.log(this.currentStep);
-    }
+    };
     //--------------------------------------------------------------------------------------------
 
     this.intersectsGoal = function() {
@@ -59,7 +59,7 @@ function BestDot(startX, startY) {
                 this.dotColour = 'green';
             }
         }
-    }
+    };
 
     this.intersectsObstacles = function() {
         //For every obstacle

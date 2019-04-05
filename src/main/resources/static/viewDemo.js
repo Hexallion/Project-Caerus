@@ -1,7 +1,15 @@
+/*
+Project Caerus- By Peter Cresswell
+
+view-demo Page component
+
+Used for viewing a list of all previously run demonstrations and also details on specific demonstrations
+*/
 Vue.component('view-demo', {
     name: "view-demo",
     template: `
 	<v-layout>
+		<!-- details on specific demonstration -->
 		<v-container grid-list-md align-center v-if="page === null">
 			<v-layout>
 				<v-flex shrink align-self-center>
@@ -86,6 +94,7 @@ Vue.component('view-demo', {
 			</v-flex>				
 		</v-container>
 		
+		<!-- List if previously run demonstrations-->
 		<v-container v-else transition="slide-x-transition">
 			<v-subheader justify-cente>
 				<h3 class="black--text">Saved Demos</h3>
@@ -342,6 +351,7 @@ Vue.component('view-demo', {
     },
 	beforeMount() {
 		console.log("Mounting view-demo");
+		//If demoId supplied display details about said demo
     	if(sessionStorage.demoId) {
 			this.getDemo();
 		}else{
@@ -349,6 +359,7 @@ Vue.component('view-demo', {
 		}
     },
     methods: {
+    	//Gets demo from server
         getDemo(){
 			this.$http.get('/viewResult/' + sessionStorage.getItem("demoId")).then(response => {
 				this.demo = response.body;
@@ -356,6 +367,8 @@ Vue.component('view-demo', {
 				this.analyse();
 			}, response => {
 				console.log(response);
+				//If server is unavailable demo could have been stored in session storage.
+				//Try catch to see if demo is in session storage
 				try{
 					this.demo = JSON.parse(sessionStorage.getItem("demo"));
 					this.populate();
@@ -366,6 +379,8 @@ Vue.component('view-demo', {
 				}
 			})
 		},
+
+		//Used to get the page of demonstrations from the server
 		getPage(){
 			this.$http.get('/viewDemos/' + (this.pageNumber - 1)).then(response => {
     			console.log(response.body);
@@ -374,6 +389,8 @@ Vue.component('view-demo', {
 				console.log(response);
     		})
 		},
+
+		//Populates the settings data object -> allows settings to be grouped
 		populate(){
 			console.log("Populating settings...");
 			for(group of this.settings){
@@ -389,24 +406,30 @@ Vue.component('view-demo', {
 			}
 			console.log("Finnished populating settings...");
 		},
+
+		//Analyses results from demo - numbers of dots over time
 		analyse(){
 			for(let index in this.demo.populations){
 				let population = this.demo.populations[index];
 				this.noDead.push(population.noDead);
 				this.noReachedGoal.push(population.noReachedGoal);
 				let reduction = 0;
-				if(this.demo.settings.sawtooth === true){reduction = ((index % this.demo.settings.period) * this.demo.settings.reduction)};
+				if (this.demo.settings.sawtooth === true) {
+					reduction = ((index % this.demo.settings.period) * this.demo.settings.reduction)
+				}
 				this.noIdleDots.push(this.demo.settings.populationSize - population.noDead - population.noReachedGoal - reduction);
 
 				console.log("noDead=" + this.noDead + ", noReachedGoal=" + this.noReachedGoal + ", noIdleDots" + this.noIdleDots);
 			}
 		},
+		//Method called when demonstration in the list is clicked
 		selectDemo(demoId){
 			console.log(demoId);
 			sessionStorage.setItem("demoId", demoId);
 			this.getDemo();
 			this.page = null;
 		},
+		//Method called when going back from viewing demonstration
 		viewPages(){
 			sessionStorage.removeItem("demoId");
 			this.getPage();
@@ -415,6 +438,8 @@ Vue.component('view-demo', {
 			this.noDead = [];
 			this.noReachedGoal = [];
 		},
+
+		//sets up session storage used for replaying the best dots
 		replayBestDots(){
         	sessionStorage.setItem("Settings", JSON.stringify(this.demo.settings));
 			let bestDotMovements = [];

@@ -1,3 +1,10 @@
+<!--
+Project Caerus- By Peter Cresswell
+
+Index.html - Main webpage
+
+Website built as a single page application (mostly due to p5.js not playing well with vue). Built using Vue and Vuetify as the material design framework.
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,14 +52,17 @@
         </v-app>
     </div>
 
+    <!-- links to other components (other sections of the webpage) and Vue/ Vuetify-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-    <script src="login.js"></script>
     <script src="home.js"></script>
+    <script src="info.js"></script>
     <script src="viewDemo.js"></script>
     <script src="newDemo.js"></script>
         <script src="genetic-algorithm/Settings.js"></script>
+
+    <!-- methods and data used in webpage -->
     <script>
         new Vue({
             el: '#app',
@@ -64,21 +74,20 @@
                     items: [
                         { title: 'Home', icon: 'home', page: 'home'},
                         { title: 'Saved Demos', icon: 'view_list', page: 'view-demo'},
-                        { title: 'New Demos', icon: 'add_box', page: 'new-demo'}
+                        { title: 'New Demos', icon: 'add_box', page: 'new-demo'},
+                        { title: 'Info', icon: 'info', page: 'info'}
                     ],
                 }
             },
+            //Used to change the page of the site
             methods: {
-                showLogin: function (garbage) {
-                    console.log(garbage);
-                    this.show = !this.show;
-                },
                 changePage: function (newPage){
                     console.log(newPage);
                     this.page = newPage;
                     this.drawer = false;
                 },
             },
+            //If demoId is stored in the session storage then it should display the view Demo page.
             beforeMount() {
                 if(sessionStorage.getItem("demoId") !== null) {
                     this.page = 'view-demo';

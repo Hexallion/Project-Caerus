@@ -1,3 +1,10 @@
+/*
+Project Caerus- By Peter Cresswell
+
+Population Entity
+
+Entity defining the structure for the Population object to be saved in the repository
+*/
 package com.nea.projectcaerus.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -8,6 +15,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "populations")
+//Automatically generated getters ans setters for variables
 @Data
 public class Population {
     @Id
@@ -17,6 +26,7 @@ public class Population {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "demo_id")
+    //Prevents child containing parent, only contains reference
     @JsonBackReference(value = "population-reference")
     private Demonstration demo;
 

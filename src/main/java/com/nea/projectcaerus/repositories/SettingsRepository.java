@@ -1,3 +1,10 @@
+/*
+Project Caerus- By Peter Cresswell
+
+Settings Repository
+
+Used to produce a repository for the settings
+*/
 package com.nea.projectcaerus.repositories;
 
 import com.nea.projectcaerus.entity.Settings;

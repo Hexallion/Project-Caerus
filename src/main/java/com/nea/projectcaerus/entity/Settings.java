@@ -1,3 +1,10 @@
+/*
+Project Caerus- By Peter Cresswell
+
+Settings Entity
+
+Entity defining the structure for the Settings object to be saved in the repository
+*/
 package com.nea.projectcaerus.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -7,8 +14,9 @@ import javax.persistence.*;
 
 //@EnableAutoConfiguration
 @Entity
-@Data
 @Table(name = "settings")
+//Automatically generated getters ans setters for variables
+@Data
 public class Settings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +24,7 @@ public class Settings {
     private Long id;
 
     @OneToOne(mappedBy = "settings")
+    //Prevents child containing parent, only contains reference
     @JsonBackReference(value = "settings-reference")
     private Demonstration demo;
 
