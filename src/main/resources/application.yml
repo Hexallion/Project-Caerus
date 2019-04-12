@@ -1,0 +1,21 @@
+server:
+    port: 80
+spring:
+    jpa:
+      show-sql: true
+      generate-ddl: true
+      hibernate:
+        ddl-auto: update
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://${custom.mysql.host}:${custom.mysql.port}/caerus?createDatabaseIfNotExist=true
+      username: xxxxxxxxxxx
+      password: xxxxxxxxxxx
+custom:
+  mysql:
+    host: ${MYSQL_HOST:xxxxxxxxxxx}
+    port: ${MYSQL_PORT:xxxxxxxxxxx}

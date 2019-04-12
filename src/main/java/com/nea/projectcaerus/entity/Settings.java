@@ -69,7 +69,7 @@ public class Settings {
     //----------------------------------
 
     //Selection Settings
-    private Integer tournamentParticipents;
+    private Integer tournamentParticipants;
     private String selectionType;
     //----------------------------------
 
@@ -81,8 +81,8 @@ public class Settings {
     private float mutationRate;
     private String DotSpecificMutation;
     private String GeneSpecificMutation;
-    private float currentMultiplyer;
-    private float mutationMultiplyer;
+    private float currentMultiplier;
+    private float mutationMultiplier;
 
     @Override
     public String toString() {
@@ -112,14 +112,14 @@ public class Settings {
                 ", obstacleWidth=" + obstacleWidth +
                 ", obstacleHeight=" + obstacleHeight +
                 ", obstacleColour='" + obstacleColour + '\'' +
-                ", tournamentParticipents=" + tournamentParticipents +
+                ", tournamentParticipants=" + tournamentParticipants +
                 ", selectionType='" + selectionType + '\'' +
                 ", noCrossings=" + noCrossings +
                 ", mutationRate=" + mutationRate +
                 ", DotSpecificMutation='" + DotSpecificMutation + '\'' +
                 ", GeneSpecificMutation='" + GeneSpecificMutation + '\'' +
-                ", currentMultiplyer=" + currentMultiplyer +
-                ", mutationMultiplyer=" + mutationMultiplyer +
+                ", currentMultiplier=" + currentMultiplier +
+                ", mutationMultiplier=" + mutationMultiplier +
                 '}';
     }
 }

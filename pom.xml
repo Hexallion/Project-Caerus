@@ -3,7 +3,7 @@
 Project Caerus- By Peter Cresswell
 
 Pom
-Used in the Maven project structure for holding the dependencies
+Used in the Maven project structure for holding the dependencies and other project requirements
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -21,10 +21,11 @@ Used in the Maven project structure for holding the dependencies
     <artifactId>project-caerus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Project Caerus</name>
-    <description>Project Caerus for my Alevel Computer Science NEA. Server for javascript Smart Dots</description>
+    <description>Project Caerus for my Alevel Computer Science NEA. Server for javascript Genetic Algorithm</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <docker.image.prefix>caerus</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -59,10 +60,16 @@ Used in the Maven project structure for holding the dependencies
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.197</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -73,20 +80,38 @@ Used in the Maven project structure for holding the dependencies
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.0</version>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.9</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.2.5.RELEASE</version>
+                <configuration>
+                    <fork>true</fork>
+                    <mainClass>com.nea.projectcaerus.ProjectCaerusApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
-
 </project>

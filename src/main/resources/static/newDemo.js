@@ -15,7 +15,7 @@ Vue.component('new-demo', {
                     <h3 class="black--text">New Demonstration Settings</h3>
                     <v-tooltip right>
 					  <template v-slot:activator="{ on }">
-						<v-icon v-on="on">'info'</v-icon>
+						<v-icon v-on="on">info</v-icon>
 					  </template>
 					  <span>See Info for details on settings</span>
 					</v-tooltip>
@@ -331,8 +331,8 @@ Vue.component('new-demo', {
 				placeholder: "Proportional Selection",
 				value: undefined,
 				subSettings: [{
-						setting: 'Tournament Participents',
-						alias: 'tournamentParticipents',
+						setting: 'Tournament Participants',
+						alias: 'tournamentParticipants',
 						type: "number",
 						placeholder: "10",
 						value: undefined,
@@ -388,7 +388,7 @@ Vue.component('new-demo', {
 			},
 			{
 				setting: 'Current Gene Multiplier',
-				alias: 'currentMultiplyer',
+				alias: 'currentMultiplier',
 				type: "number",
 				placeholder: "1",
 				value: undefined,
@@ -399,7 +399,7 @@ Vue.component('new-demo', {
 			},
 			{
 				setting: 'Mutation Gene Multiplier',
-				alias: 'mutationMultiplyer',
+				alias: 'mutationMultiplier',
 				type: "number",
 				placeholder: "0.5",
 				value: undefined,

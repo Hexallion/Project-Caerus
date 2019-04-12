@@ -298,8 +298,8 @@ Vue.component('view-demo', {
 					type: "multiple",
 					value: undefined,
 					subSettings: [{
-							setting: 'Tournament Participents',
-							alias: 'tournamentParticipents',
+							setting: 'Tournament Participants',
+							alias: 'tournamentParticipants',
 							type: "number",
 							value: undefined
 						}]
@@ -336,13 +336,13 @@ Vue.component('view-demo', {
 				},
 				{
 					setting: 'Current Gene Multiplier',
-					alias: 'currentMultiplyer',
+					alias: 'currentMultiplier',
 					type: "number",
 					value: undefined
 				},
 				{
 					setting: 'Mutation Gene Multiplier',
-					alias: 'mutationMultiplyer',
+					alias: 'mutationMultiplier',
 					type: "number",
 					value: undefined
 				}]
